@@ -1,0 +1,61 @@
+<!-- 
+- This demo works only with Firefox if accessed locally file:// (CORS is not enabled by default on other browsers)
+- It works properly if using localhost
+- Developed by john panelo 
+-->
+
+<!DOCTYPE html>
+<html ng-app="search">
+	<head>
+    	<script src="angular.js"></script>
+    	<script src="ui-bootstrap-tpls-0.5.0.js"></script>
+    	<link rel="stylesheet" href="css/bootstrap.min.css">
+    	<link rel="stylesheet" href="css/user.css">
+    	<script src="app.js"></script>
+    </head>
+    
+    <body ng-controller="searchCtrl">  
+		<nav class="navbar navbar-default container-inside center-block" role="navigation">
+			<div class="navbar-collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li><img src="img/logo.png" /></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li ng-show="!opened"><button type="submit" class="btn btn-default btn-sm" ng-click="open()"><i class="glyphicon glyphicon-search"></i></button></li>
+					<li ng-show="opened"><button type="submit" class="btn btn-default btn-sm" ng-click="close()"><i class="glyphicon glyphicon-remove"></i></button></li>
+				</ul>
+			</div>
+		</nav>	    
+	    <div class="container fill">
+	    	<div id="home" ng-show="!opened">
+	    	
+	    	</div>
+		    <div id="search" ng-show="opened">
+			   	<form class="center-block container-inside">
+					<div class="input-group add-on">
+						<input placeholder="Search Publishers" type="text" focus-me="opened" ng-model="search.siteName" class="form-control input-block-level input-lg" />
+						<div class="input-group-btn">
+							<button class="btn btn-default btn-lg" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+						</div>
+					</div>
+						
+					<div ng-repeat="Sites in (search ? (getSites | filter:search) : [])">
+				    	<div class="text-left">
+							<b>{{ Sites.siteName }}</b><br />
+							<a href="http://{{ selected.siteUrl }}">{{ Sites.siteUrl }}</a><br />
+							{{ Sites.description }}
+						</div>
+					</div>
+
+				</form>
+				<div class="center-block container-inside">
+					<p class="text-center border" ng-show="(getSites | filter:search).length == 0">We currently don't have any results for your search, try another.</p>
+				</div>
+				
+		    </div> 
+		</div>
+	</body>
+</html>
+
+
+
